@@ -1,5 +1,6 @@
 import pymongo
 from pymongo import MongoClient
+import pprint
 '''
 #create a client object to communicate with your currently running MongoDB instance
 '''
@@ -31,8 +32,8 @@ print(db.name)
 use dictionaries to create documents
 '''
 user1={
-    "username":"durga1",
-    "role":"teacher"
+    "username":"durga",
+    "role":"Teacher"
 }
 '''
 specify which collection you want to use
@@ -49,48 +50,28 @@ print("insrted the doc")
 print(one_result)
 #>>><pymongo.results.InsertOneResult object at 0x00000099BB23B208>
 print(f"User1: {one_result.inserted_id}")
-#>>>User1: 60a64ef92a558622d015a611
+#>>>User1: 60a6676724966527325584ac
 '''
 use .insert_many() to insert them in one go
 '''
 user2={
-    "username":"durga2",
+    "username":"A.Ram",
     "role":"student"
 }
 user3={
-    "username":"durga3",
+    "username":"A.Shyam",
     "role":"student"
 }
-many_result = users.insert_many([user2, user3])
-print(f"Multiple userss: {many_result.inserted_ids}")
-#>>>Multiple userss: [ObjectId('60a64ef92a558622d015a612'), ObjectId('60a64ef92a558622d015a613')]
-
-import pprint
-'''
-use .find(). Without arguments, 
-.find() returns a Cursor object that yields the documents in the collection on demand
-'''
-for doc in users.find():
-    pprint.pprint(doc)
-#>>>
-'''
-{'_id': ObjectId('60a64ef92a558622d015a611'),
- 'role': 'teacher',
- 'username': 'durga1'}
-{'_id': ObjectId('60a64ef92a558622d015a612'),
- 'role': 'student',
- 'username': 'durga2'}
-{'_id': ObjectId('60a64ef92a558622d015a613'),
- 'role': 'student',
- 'username': 'durga3'}
-'''
-user_1 = users.find_one({"username": "durga1"})
-pprint.pprint(user_1)
-#>>>
-'''
-{'_id': ObjectId('60a64ef92a558622d015a611'),
- 'role': 'teacher',
- 'username': 'durga1'}
- '''
- #close connection => close the connection by calling .close() on the MongoClient instance
+user4={
+    "username":"B.Gani",
+    "role":"teacher"
+}
+user5={
+    "username":"B.Kiran",
+    "role":"teacher"
+}
+many_result =users.insert_many([user2, user3,user4,user5])
+print(f"Multiple users: {many_result.inserted_ids}")
+#>>>Multiple users: [ObjectId('60a6676724966527325584ad'), ObjectId('60a6676724966527325584ae'), ObjectId('60a6676724966527325584af'), ObjectId('60a6676724966527325584b0')]
+#close connection => close the connection by calling .close() on the MongoClient instance
 client.close()
