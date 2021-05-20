@@ -92,3 +92,5 @@ pprint.pprint(user_1)
  'role': 'teacher',
  'username': 'durga1'}
  '''
+ #close connection => close the connection by calling .close() on the MongoClient instance
+client.close()
